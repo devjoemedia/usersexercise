@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = (props) => {
+const Form = ({ addUser }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gen, setGen] = useState(0);
@@ -8,7 +8,7 @@ const Form = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = { name, email, gen };
-    props.addUser(newUser);
+    addUser(newUser);
 
     setName("");
     setEmail("");
