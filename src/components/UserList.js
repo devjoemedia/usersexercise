@@ -1,25 +1,28 @@
 import React from "react";
+import User from "./User";
 
-const UserList = ({ users }) => {
+const UserList = ({ users, deleteUser, editUser }) => {
   return (
     <div>
-      <table class="table table-dark table-striped">
+      <table className="table table-dark table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Gen</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
-            <tr key={index}>
-              <th>{index + 1}</th>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.gen}</td>
-            </tr>
+            <User
+              key={index}
+              index={index}
+              user={user}
+              deleteUser={deleteUser}
+              editUser={editUser}
+            />
           ))}
         </tbody>
       </table>

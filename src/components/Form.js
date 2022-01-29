@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const Form = ({ addUser }) => {
   const [name, setName] = useState("");
@@ -7,7 +8,7 @@ const Form = ({ addUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newUser = { name, email, gen };
+    const newUser = { id: uuid(), name, email, gen };
     addUser(newUser);
 
     setName("");
@@ -19,7 +20,7 @@ const Form = ({ addUser }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Name
           </label>
           <input
@@ -33,7 +34,7 @@ const Form = ({ addUser }) => {
           />
         </div>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInputPassword1" className="form-label">
             Email
           </label>
           <input
@@ -46,7 +47,7 @@ const Form = ({ addUser }) => {
           />
         </div>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInputPassword1" className="form-label">
             Gen
           </label>
           <input
