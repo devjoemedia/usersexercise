@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { addUser } from "../actions";
+import { useDispatch } from "react-redux";
 
-const Form = ({ addUser }) => {
+const Form = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gen, setGen] = useState(0);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = { id: uuid(), name, email, gen };
-    addUser(newUser);
+
+    dispatch(addUser(newUser));
 
     setName("");
     setEmail("");

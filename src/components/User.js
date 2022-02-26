@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { deleteUser, editUser } from "../actions";
 
-const User = ({ user, index, deleteUser, editUser }) => {
+const User = ({ user, index }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [show, setShow] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleEdit = () => {
-    editUser({ id: user.id, name, email, gen: user.gen });
+    const newUser = { id: user.id, name, email, show };
+
+    dispatch(editUser(newUser));
     setShow(false);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id));
   };
 
   return (
@@ -20,7 +30,7 @@ const User = ({ user, index, deleteUser, editUser }) => {
         <td>{user.gen}</td>
         <td>
           <Button onClick={() => setShow(true)}>Edit</Button>
-          <Button variant="danger" onClick={() => deleteUser(user.id)}>
+          <Button variant="danger" onClick={() => handleDelete(user.id)}>
             Delete
           </Button>
         </td>

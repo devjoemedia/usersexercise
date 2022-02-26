@@ -1,7 +1,10 @@
 import React from "react";
 import User from "./User";
+import { useSelector } from "react-redux";
 
-const UserList = ({ users, deleteUser, editUser }) => {
+const UserList = () => {
+  const users = useSelector((state) => state.users);
+
   return (
     <div>
       {users.length ? (
@@ -17,13 +20,7 @@ const UserList = ({ users, deleteUser, editUser }) => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <User
-                key={index}
-                index={index}
-                user={user}
-                deleteUser={deleteUser}
-                editUser={editUser}
-              />
+              <User key={index} index={index} user={user} />
             ))}
           </tbody>
         </table>
