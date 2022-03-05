@@ -16,24 +16,24 @@ const reducer = (state = initialState, action) => {
       };
 
     case "EDIT_USER":
-      // const users = state.users.map((user) => {
-      //   if (user.id === action.payload.id) return action.payload;
-      //   return user;
-      // });
+      const users = state.users.map((user) => {
+        if (user.id === action.payload.id) return action.payload;
+        return user;
+      });
 
       return {
         ...state,
-        // users,
+        users,
       };
 
     case "DELETE_USER":
-      // const filteredUsers = state.users.filter(
-      //   (user) => user.id !== action.payload
-      // );
+      const filteredUsers = state.users.filter(
+        (user) => user.id !== action.payload
+      );
 
       return {
         ...state,
-        // users: filteredUsers,
+        users: filteredUsers,
       };
 
     default:
