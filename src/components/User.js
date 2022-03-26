@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { deleteUser, editUser } from "../actions";
+import firebase from "../firebase/config";
 
 const User = ({ user, index }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [show, setShow] = useState(false);
 
-  const dispatch = useDispatch();
-
   const handleEdit = () => {
     const newUser = { id: user.id, name, email, show };
-
-    dispatch(editUser(newUser));
+    try {
+      firebase.firestore().collection("users").doc(user.id).update(newUser);
+    } catch (err) {
+      console.log(err.messge);
+    }
     setShow(false);
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteUser(id));
+    try {
+      firebase.firestore().collection("users").doc(id).delete();
+    } catch (err) {
+      console.log(err.messge);
+    }
   };
 
   return (

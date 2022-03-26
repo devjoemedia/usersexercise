@@ -1,14 +1,14 @@
-import { v4 as uuid } from "uuid";
-
 const initialState = {
-  users: [
-    { id: uuid(), email: "jay@test.com", name: "Jay", gen: 20 },
-    { id: uuid(), email: "tony@test.com", name: "Tony", gen: 10 },
-  ],
+  users: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_USERS":
+      return {
+        ...state,
+        users: action.payload,
+      };
     case "ADD_USER":
       return {
         ...state,

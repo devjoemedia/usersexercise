@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { addUser } from "../actions";
-import { useDispatch } from "react-redux";
+import firebase from "../firebase/config";
 
 const Form = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gen, setGen] = useState(0);
 
-  const dispatch = useDispatch();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = { id: uuid(), name, email, gen };
 
-    dispatch(addUser(newUser));
+    try {
+      firebase.firestore().collection("users").doc(newUser.id).set(newUser);
+    } catch (err) {
+      console.log(err.messge);
+    }
+
+    // dispatch(addUser(newUser));
 
     setName("");
     setEmail("");
