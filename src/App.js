@@ -20,7 +20,7 @@ function App() {
 
         dispatch(setUsers(data));
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div style={{ width: "600px", margin: "auto" }}>
