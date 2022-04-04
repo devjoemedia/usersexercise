@@ -1,22 +1,22 @@
-import { createStore, compose, applyMiddleware } from "redux";
-import { getFirebase, reactReduxFirebase } from "react-redux-firebase";
-import { getFirestore, reduxFirestore } from "redux-firestore";
-import thunk from "redux-thunk";
-import reducer from "../reducers/reducer";
-import config from "../firebase/config";
+import { createStore, combineReducers } from "redux";
+import userReducer from "../reducers/userReducer";
+import authReducer from "../reducers/authReducer";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const store = createStore(
-  reducer,
-  compose(
-    applyMiddleware(
-      thunk.withExtraArgument({
-        getFirebase,
-        getFirestore,
-      })
-    ),
-    reactReduxFirebase(config),
-    reduxFirestore(config)
-  )
-);
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-export default store;
+const reducers = combineReducers({
+  users: userReducer,
+  auth: authReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = createStore(persistedReducer);
+const persistor = persistStore(store);
+
+export { store, persistor };

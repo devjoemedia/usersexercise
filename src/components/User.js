@@ -7,19 +7,23 @@ const User = ({ user, index }) => {
   const [email, setEmail] = useState(user.email);
   const [show, setShow] = useState(false);
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     const newUser = { id: user.id, name, email, show };
     try {
-      firebase.firestore().collection("users").doc(user.id).update(newUser);
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.id)
+        .update(newUser);
     } catch (err) {
       console.log(err.messge);
     }
     setShow(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     try {
-      firebase.firestore().collection("users").doc(id).delete();
+      await firebase.firestore().collection("users").doc(id).delete();
     } catch (err) {
       console.log(err.messge);
     }

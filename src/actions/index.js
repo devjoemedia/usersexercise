@@ -1,3 +1,10 @@
+export const setAuthUser = (user) => {
+  return {
+    type: "SET_USER",
+    payload: user,
+  };
+};
+
 export const setUsers = (users) => {
   return {
     type: "SET_USERS",

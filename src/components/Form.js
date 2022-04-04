@@ -17,8 +17,6 @@ const Form = () => {
       console.log(err.messge);
     }
 
-    // dispatch(addUser(newUser));
-
     setName("");
     setEmail("");
     setGen(0);
