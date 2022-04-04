@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import firebase from "../firebase/config";
-
+import firebase from "firebase";
+import firebaseConfig from "../firebase/config.js";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +12,21 @@ const Login = () => {
   const handleLogIn = async (e) => {
     e.preventDefault();
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      await firebaseConfig.auth().signInWithEmailAndPassword(email, password);
+
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const LoginWithGoogle = async (e) => {
+    e.preventDefault();
+
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      await firebaseConfig.auth().signInWithPopup(provider);
 
       navigate("/", { replace: true });
     } catch (err) {
@@ -33,9 +47,8 @@ const Login = () => {
       >
         <div
           style={{
-            width: "50%",
-            backgroundColor: "#eee",
-            borderRadius: 10,
+            width: "400px",
+            backgroundColor: "#f1f1f1",
             padding: 50,
           }}
         >
@@ -63,12 +76,22 @@ const Login = () => {
                 value={password}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleLogIn}>
+            <Button
+              variant="primary"
+              fullWidth
+              type="submit"
+              onClick={handleLogIn}
+            >
               Submit
             </Button>
-            {/* <Button variant="primary" type="submit" onClick={signInWithGoogle}>
+            <Button
+              variant="secondary"
+              style={{ marginLeft: "20px" }}
+              type="submit"
+              onClick={LoginWithGoogle}
+            >
               Sign in with Google
-            </Button> */}
+            </Button>
 
             <p>
               Don't have an account? <Link to="/register">Register</Link>

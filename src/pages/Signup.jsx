@@ -49,9 +49,8 @@ const Signup = () => {
       >
         <div
           style={{
-            width: "50%",
-            backgroundColor: "#eee",
-            borderRadius: 10,
+            width: "400px",
+            backgroundColor: "#f1f1f1",
             padding: 50,
           }}
         >
@@ -87,6 +86,7 @@ const Signup = () => {
               variant="primary"
               type="submit"
               onClick={LoginWithGoogle}
+              style={{ marginLeft: "20px" }}
             >
               Sign in with Google
             </Button>
